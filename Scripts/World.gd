@@ -12,13 +12,14 @@ func _ready():
 
 func _process(delta):
 	quit_button()
-	#background_follow()
+	background_follow()
 	
 func quit_button():
-	if Input.is_key_pressed(KEY_ESCAPE):
+	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 
-#func background_follow():
-#	var bottom = get_viewport_rect().size.y
-#	var cam_bottom = $Player/Camera2D.position.y
+func background_follow():
+	#var bottom_line = $Player/Camera2D.get_viewport()
+	#var last_visible_line_pos = $Bck_bot.position.y + $Bck_bot.transform.origin.y
+	pass
 	

@@ -3,20 +3,38 @@
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Edited/skier.png" type="Texture" id=2]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="RigidBody2D" index="0"]
 
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+mode = 0
+mass = 1.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Angular", "Applied Forces", "Linear" ]
 speed = 100
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 35, 10, 49, 97 )
+_sections_unfolded = [ "Region" ]
 
 [node name="Camera2D" type="Camera2D" parent="." index="1"]
 
