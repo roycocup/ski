@@ -1,13 +1,13 @@
 extends Node2D
 
 var cur_camera
-var cur_background
-var bottom_background
+var cur_background_y
+var bottom_background_y
 
 func _ready():
 	$Player/Camera2D.make_current()
-	cur_background = $Bck
-	bottom_background = $Bck_bot
+	cur_background_y = $Bck.position.y
+	bottom_background_y = $Bck_bot.position.y
 	set_process(true)
 
 func _process(delta):
@@ -23,3 +23,8 @@ func background_follow():
 	#var last_visible_line_pos = $Bck_bot.position.y + $Bck_bot.transform.origin.y
 	pass
 	
+
+func _on_Player_reset_background():
+	print("reset backgrounds")
+	$Bck.position.y += 512
+	$Bck_bot.position.y += 512

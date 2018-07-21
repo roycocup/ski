@@ -6,6 +6,8 @@ var region = {x=0, y=0, w=0, h=0}
 enum statuses {RESET, LEFT1, LEFT2, RIGHT1, RIGHT2}
 var status = statuses.RESET
 
+signal reset_background
+
 
 func _ready():
 	animate_reset()
@@ -14,6 +16,7 @@ func _ready():
 
 func _physics_process(delta):
 	input_listen(delta)
+	check_reset_background()
 	
 
 func input_listen(delta):
@@ -50,3 +53,8 @@ func animate_turn_90(mirror = false):
 		$Sprite.scale.x = -.5
 	else:
 		$Sprite.scale.x = .5
+
+func check_reset_background():
+	var x = fmod(position.y, 512)
+	if (x > 0 and x < 1):
+		emit_signal("reset_background")

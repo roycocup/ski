@@ -20,5 +20,8 @@ _sections_unfolded = [ "Transform" ]
 [node name="Player" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 512, 256 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Linear", "Transform" ]
+
+[connection signal="reset_background" from="Player" to="." method="_on_Player_reset_background"]
 
 
