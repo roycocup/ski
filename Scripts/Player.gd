@@ -1,13 +1,12 @@
 extends RigidBody2D
 
 export (int) var speed = 100
-onready var pos = Vector2()
 var region = {x=0, y=0, w=0, h=0}
 enum statuses {RESET, LEFT1, LEFT2, RIGHT1, RIGHT2}
 var status = statuses.RESET
-
 signal reset_background
 
+var FSM = preload("FSM.gd")
 
 func _ready():
 	animate_reset()
@@ -18,9 +17,8 @@ func _physics_process(delta):
 	input_listen(delta)
 	check_reset_background()
 	
-
+	
 func input_listen(delta):
-	pos = Vector2()
 	if Input.is_action_just_pressed("ui_right"):
 		if status == statuses.RIGHT1:
 			status = statuses.RIGHT2
