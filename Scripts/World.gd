@@ -4,6 +4,8 @@ var cur_camera
 var cur_background_y
 var bottom_background_y
 
+var hud
+
 func _ready():
 	$Player/Camera2D.make_current()
 	cur_background_y = $Bck.position.y
@@ -12,6 +14,7 @@ func _ready():
 
 func _process(delta):
 	quit_button()
+	$Player/Camera2D/Player_Speed.text = String(round($Player.linear_velocity.y))
 	background_follow()
 	
 func quit_button():
