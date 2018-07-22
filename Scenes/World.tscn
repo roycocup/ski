@@ -1,31 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Background.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/SeeAllCamera.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 
-[node name="World" type="Node2D" index="0"]
+[node name="World" type="Node2D"]
 
 script = ExtResource( 1 )
 background = ExtResource( 2 )
 
-[node name="Backgrounds" type="Node2D" parent="." index="0"]
-
-[node name="Bck" parent="Backgrounds" index="0" instance=ExtResource( 2 )]
-
-_sections_unfolded = [ "Transform" ]
-
-[node name="Bck_bot" parent="Backgrounds" index="1" instance=ExtResource( 2 )]
-
-position = Vector2( 0, 512 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
-
-position = Vector2( 512, 256 )
-_sections_unfolded = [ "Angular", "Applied Forces", "Linear", "Transform" ]
-
-[node name="SeeAllCamera" type="Camera2D" parent="." index="2"]
+[node name="SeeAllCamera" type="Camera2D" parent="." index="0"]
 
 position = Vector2( 518.296, 488.362 )
 anchor_mode = 1
@@ -50,6 +35,21 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
+script = ExtResource( 3 )
+
+[node name="Backgrounds" type="Node2D" parent="." index="1"]
+
+[node name="Bck" parent="Backgrounds" index="0" instance=ExtResource( 2 )]
+
+[node name="Bck-bot" parent="Backgrounds" index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 0, 512 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Player" parent="." index="2" instance=ExtResource( 4 )]
+
+position = Vector2( 512, 256 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Linear", "Transform" ]
 
 [connection signal="create_new_background" from="Player" to="." method="_on_Player_create_new_background"]
 
