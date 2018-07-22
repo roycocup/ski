@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/Tileset.tres" type="TileSet" id=1]
 
-[node name="Background" type="Node2D" index="0"]
+[node name="Background" type="Node2D"]
 
 [node name="Snow" type="TileMap" parent="." index="0"]
 

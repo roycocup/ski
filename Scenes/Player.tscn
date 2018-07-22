@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 15.2351, 25.8816 )
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" index="0"]
 
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
@@ -32,7 +32,7 @@ angular_velocity = 0.0
 angular_damp = 0.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Angular", "Applied Forces", "Linear" ]
-speed = 100
+speed = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
