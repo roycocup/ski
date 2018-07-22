@@ -64,8 +64,8 @@ func toggle_direction(mirror = false):
 		$Sprite.scale.x = .5
 
 func check_reset_background():
-	var x = fmod(position.y, 512)
-	if (x > 0 and x < 1):
+	var diff = fmod(round(position.y), 512)
+	if (diff >= 0 and diff <= 1):
 		emit_signal("reset_background")
 
 	

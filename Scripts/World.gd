@@ -7,7 +7,8 @@ var bottom_background_y
 var hud
 
 func _ready():
-	$Player/Camera2D.make_current()
+	#$Player/Camera2D.make_current()
+	$SeeAllCamera.make_current()
 	cur_background_y = $Bck.position.y
 	bottom_background_y = $Bck_bot.position.y
 	set_process(true)
@@ -29,5 +30,6 @@ func background_follow():
 
 func _on_Player_reset_background():
 	print("reset backgrounds")
-	$Bck.position.y += 512
-	$Bck_bot.position.y += 512
+	var offset = 512
+	$Bck.position.y += offset
+	$Bck_bot.position.y += offset
