@@ -7,22 +7,25 @@
 [node name="World" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+background = ExtResource( 2 )
 
-[node name="Bck" parent="." index="0" instance=ExtResource( 2 )]
+[node name="Backgrounds" type="Node2D" parent="." index="0"]
+
+[node name="Bck" parent="Backgrounds" index="0" instance=ExtResource( 2 )]
 
 _sections_unfolded = [ "Transform" ]
 
-[node name="Bck_bot" parent="." index="1" instance=ExtResource( 2 )]
+[node name="Bck_bot" parent="Backgrounds" index="1" instance=ExtResource( 2 )]
 
 position = Vector2( 0, 512 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
+[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( 512, 256 )
 _sections_unfolded = [ "Angular", "Applied Forces", "Linear", "Transform" ]
 
-[node name="SeeAllCamera" type="Camera2D" parent="." index="3"]
+[node name="SeeAllCamera" type="Camera2D" parent="." index="2"]
 
 position = Vector2( 518.296, 488.362 )
 anchor_mode = 1
@@ -48,6 +51,6 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 
-[connection signal="reset_background" from="Player" to="." method="_on_Player_reset_background"]
+[connection signal="create_new_background" from="Player" to="." method="_on_Player_create_new_background"]
 
 

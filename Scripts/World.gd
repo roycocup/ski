@@ -1,35 +1,35 @@
 extends Node2D
 
-var cur_camera
-var cur_background_y
-var bottom_background_y
+export (PackedScene) var background
 
 var hud
 
+onready var cam1 = $Player/Camera2D
+onready var cam2 = $SeeAllCamera
+
 func _ready():
-	#$Player/Camera2D.make_current()
-	$SeeAllCamera.make_current()
-	cur_background_y = $Bck.position.y
-	bottom_background_y = $Bck_bot.position.y
+	cam1.make_current()
 	set_process(true)
 
 func _process(delta):
 	quit_button()
 	$Player/Camera2D/Player_Speed.text = String(round($Player.linear_velocity.y))
-	background_follow()
+	camera_switch()
 	
 func quit_button():
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 
-func background_follow():
-	#var bottom_line = $Player/Camera2D.get_viewport()
-	#var last_visible_line_pos = $Bck_bot.position.y + $Bck_bot.transform.origin.y
-	pass
+func camera_switch():
+	if Input.is_key_pressed(KEY_1):
+		cam1.make_current()
+	if Input.is_key_pressed(KEY_2):
+		cam2.make_current()
 	
 
-func _on_Player_reset_background():
-	print("reset backgrounds")
-	var offset = 512
-	$Bck.position.y += offset
-	$Bck_bot.position.y += offset
+func _on_Player_create_new_background(player_pos):
+	print("creating new background")
+	var offset = 256
+	var bck = background.instance()
+	$Backgrounds.add_child(bck)
+	bck.position = Vector2(0, player_pos.y + offset)

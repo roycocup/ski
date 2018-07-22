@@ -7,7 +7,7 @@ var region = {x=0, y=0, w=0, h=0}
 enum States {RESET, LEFT1, LEFT2, RIGHT1, RIGHT2}
 var status = States.RESET
 
-signal reset_background
+signal create_new_background
 
 func _ready():
 	animate_reset()
@@ -66,6 +66,6 @@ func toggle_direction(mirror = false):
 func check_reset_background():
 	var diff = fmod(round(position.y), 512)
 	if (diff >= 0 and diff <= 1):
-		emit_signal("reset_background")
+		emit_signal("create_new_background", position)
 
 	
