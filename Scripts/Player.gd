@@ -67,7 +67,9 @@ func toggle_direction(mirror = false):
 
 func check_reset_background():
 	var diff = fmod(round(position.y), 512)
-	if (diff >= 0 and diff <= 1):
+	if (diff >= 0 and diff <=1):
+		print(diff)
+	if (diff == 0):
 		emit_signal("create_new_background", position)
 
 	
