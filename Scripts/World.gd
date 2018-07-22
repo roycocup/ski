@@ -1,6 +1,7 @@
 extends Node2D
 
 export (PackedScene) var background
+export (PackedScene) var rock
 
 var hud
 
@@ -28,8 +29,8 @@ func camera_switch():
 	
 
 func _on_Player_create_new_background(player_pos):
-	print("creating new background")
 	var offset = 256
 	var bck = background.instance()
 	$Backgrounds.add_child(bck)
 	bck.position = Vector2(0, player_pos.y + offset)
+	

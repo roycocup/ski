@@ -31,13 +31,15 @@ func input_listen(delta):
 			linear_damp = .1
 		linear_velocity = Vector2(speed * .75, speed * .75)
 		set_animate_region()
-	if Input.is_key_pressed(KEY_LEFT):
+	if Input.is_action_just_pressed("ui_left"):
 		if status == States.LEFT1:
 			status = States.LEFT2
 			region = {x=276, y=11, w=83, h=74}
+			linear_damp = .5
 		else: 
 			status = States.LEFT1 
 			region = {x=158, y=10, w=60, h=100} 
+			linear_damp = .1
 		linear_velocity = Vector2(-speed * .75, speed * .75)
 		set_animate_region(true)
 	if Input.is_key_pressed(KEY_DOWN):
