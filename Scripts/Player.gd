@@ -3,6 +3,8 @@ extends RigidBody2D
 export (int) var speed = 100
 
 var region = {x=0, y=0, w=0, h=0}
+var howFarDown = 0
+var lastMark = 0
 
 enum States {RESET, LEFT1, LEFT2, RIGHT1, RIGHT2}
 var status = States.RESET
@@ -66,10 +68,8 @@ func toggle_direction(mirror = false):
 		$Sprite.scale.x = .5
 
 func check_reset_background():
-	var diff = fmod(round(position.y), 512)
-	if (diff >= 0 and diff <=1):
-		print(diff)
-	if (diff == 0):
+	if (position.y >= lastMark + 512):
+		lastMark = position.y
 		emit_signal("create_new_background", position)
 
 	
