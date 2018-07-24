@@ -19,72 +19,73 @@ func _physics_process(delta):
 	animate()
 	check_reset_background()
 	
+# Sets all possible states and their links to the next states
 func init_states():
 	FSM.add_state(
 		FSM.states.RESET, [
-			{"event":FSM.events.LEFT, "state":FSM.states.LEFT1}, 
-			{"event":FSM.events.RIGHT, "state":FSM.states.RIGHT1}, 
+			{"event":FSM.events.LEFT, "to_state":FSM.states.LEFT1}, 
+			{"event":FSM.events.RIGHT, "to_state":FSM.states.RIGHT1}, 
 		])
-	# FSM.add_state(FSM.states.LEFT1, [FSM.states.LEFT2, FSM.states.RESET])
-	# FSM.add_state(FSM.states.LEFT2, [FSM.states.LEFT1])
-	# FSM.add_state(FSM.states.RIGHT1, [FSM.states.RIGHT2, FSM.states.RESET])
-	# FSM.add_state(FSM.states.RIGHT2, [FSM.states.RIGHT1])
+	FSM.add_state(
+		FSM.states.LEFT1, [
+			{"event":FSM.events.LEFT, "to_state":FSM.states.LEFT2}, 
+			{"event":FSM.events.RIGHT, "to_state":FSM.states.RESET}, 
+		])
+	FSM.add_state(
+		FSM.states.LEFT2, [
+			{"event":FSM.events.LEFT, "to_state":FSM.states.LEFT2}, 
+			{"event":FSM.events.RIGHT, "to_state":FSM.states.LEFT1}, 
+		])
+	FSM.add_state(
+		FSM.states.RIGHT1, [
+			{"event":FSM.events.LEFT, "to_state":FSM.states.RESET}, 
+			{"event":FSM.events.RIGHT, "to_state":FSM.states.RIGHT2}, 
+		])
+	FSM.add_state(
+		FSM.states.RIGHT2, [
+			{"event":FSM.events.LEFT, "to_state":FSM.states.RIGHT1}, 
+			{"event":FSM.events.RIGHT, "to_state":FSM.states.RIGHT2}, 
+		])
+	
 	FSM.current_state = FSM.states.RESET
 
+# Asks for FSM to transition the state based on input
 func input_listen(delta):
 	if Input.is_action_just_pressed("ui_right"):
 		FSM.handle(FSM.events.RIGHT)
 	if Input.is_action_just_pressed("ui_left"):
 		FSM.handle(FSM.events.LEFT)
+	if Input.is_action_just_pressed("ui_down"):
+		FSM.handle(FSM.events.RESET)
 
 func animate():
-	if FSM.current_state == FSM.states.RESET:
-		linear_velocity = Vector2(0, speed)
-		animate_reset()
-		return
-	if FSM.current_state == FSM.states.RIGHT1:
-		region = {x=158, y=10, w=60, h=100}
-		linear_damp = .1
-	if FSM.current_state == FSM.states.RIGHT2:
-		region = {x=276, y=11, w=83, h=74} 
-		linear_damp = .5
-	if FSM.current_state == FSM.states.LEFT1:
-		region = {x=158, y=10, w=60, h=100} 
-		linear_damp = .1
-	if FSM.current_state == FSM.states.LEFT2:
-		region = {x=276, y=11, w=83, h=74}
-		linear_damp = .5
-	
-	linear_velocity = Vector2(-speed * .75, speed * .75)
-	set_animate_region(true)
-
-# func input_listen_old(delta):
-# 	if Input.is_action_just_pressed("ui_right"):
-# 		if status == States.RIGHT1:
-# 			status = States.RIGHT2
-# 			region = {x=276, y=11, w=83, h=74} 
-# 			linear_damp = .5
-# 		else:
-# 			status = States.RIGHT1
-# 			region = {x=158, y=10, w=60, h=100}
-# 			linear_damp = .1
-# 		linear_velocity = Vector2(speed * .75, speed * .75)
-# 		set_animate_region()
-# 	if Input.is_action_just_pressed("ui_left"):
-# 		if status == States.LEFT1:
-# 			status = States.LEFT2
-# 			region = {x=276, y=11, w=83, h=74}
-# 			linear_damp = .5
-# 		else: 
-# 			status = States.LEFT1 
-# 			region = {x=158, y=10, w=60, h=100} 
-# 			linear_damp = .1
-# 		linear_velocity = Vector2(-speed * .75, speed * .75)
-# 		set_animate_region(true)
-# 	if Input.is_key_pressed(KEY_DOWN):
-# 		status = States.RESET 
-# 		linear_velocity = Vector2(0, speed)
-# 		animate_reset()
+	if Input.is_action_just_pressed("ui_left") \
+		or Input.is_action_just_pressed("ui_right") \
+		or Input.is_action_just_pressed("ui_down"):
+		if FSM.current_state == FSM.states.RESET:
+			linear_velocity = Vector2(0, speed)
+			animate_reset()
+			return
+		if FSM.current_state == FSM.states.RIGHT1:
+			region = {x=158, y=10, w=60, h=100}
+			linear_damp = .1
+			linear_velocity = Vector2(speed * .75, speed * .75)
+			set_animate_region()
+		if FSM.current_state == FSM.states.RIGHT2:
+			region = {x=276, y=11, w=83, h=74} 
+			linear_damp = .5
+			linear_velocity = Vector2(speed * .75, speed * .75)
+			set_animate_region()
+		if FSM.current_state == FSM.states.LEFT1:
+			region = {x=158, y=10, w=60, h=100} 
+			linear_damp = .1
+			linear_velocity = Vector2(-speed * .75, speed * .75)
+			set_animate_region(true)
+		if FSM.current_state == FSM.states.LEFT2:
+			region = {x=276, y=11, w=83, h=74}
+			linear_damp = .5
+			linear_velocity = Vector2(-speed * .75, speed * .75)
+			set_animate_region(true)
 
 func animate_reset():
 	region = {x=35, y=10, w=49, h=97} 
