@@ -29,8 +29,12 @@ func camera_switch():
 	
 
 func _on_Player_create_new_background(player_pos):
-	var offset = 256
-	var bck = background.instance()
-	$Backgrounds.add_child(bck)
-	bck.position = Vector2(0, player_pos.y + offset)
+	var offset = 512
+	var back = background.instance()
+	# get the last element from the backgrounds
+	var last_back = $Backgrounds.get_children().pop_back()
+	# add the child to backgrounds as last
+	$Backgrounds.add_child_below_node(last_back, back)
+	# position it as right after last by the size of the background
+	back.position = Vector2(0, last_back.position.y + offset)
 	

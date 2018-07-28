@@ -10,3 +10,4 @@ export.cfg
 
 # custom
 .DS_Store
+bin/*
